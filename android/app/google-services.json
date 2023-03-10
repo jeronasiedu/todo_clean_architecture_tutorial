@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "978781561649",
+    "project_id": "todo-clean-architecture-12345",
+    "storage_bucket": "todo-clean-architecture-12345.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978781561649:android:7d5cb1c67980a6dc7dc610",
+        "android_client_info": {
+          "package_name": "com.jerondev.com.todo_clean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978781561649-8i9arci8ecnk86oaemnbso69l4hhrpcp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3oquql1kc2x-MR8pC3LQR-w1GJyzQo0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978781561649-8i9arci8ecnk86oaemnbso69l4hhrpcp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
