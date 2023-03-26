@@ -20,6 +20,10 @@ class TodoRepositoryImpl implements TodoRepository {
       return Left(Failure("Oops, we couldn't add this todo "));
     }
   }
+  /* 
+  a use case refers to a specific action or functionality that a user can perform within an application. It represents a logical unit of work that an application can perform in response to a user's request or an event.
+  
+   */
 
   @override
   Future<Either<Failure, Todo>> delete(Todo todo) async {
