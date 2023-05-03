@@ -12,6 +12,7 @@ dependencies:
   firebase_core: ^2.5.0
   cloud_firestore: ^4.3.2
   dartz: ^0.10.1
+  get:
 
 dev_dependencies:
   flutter_test:

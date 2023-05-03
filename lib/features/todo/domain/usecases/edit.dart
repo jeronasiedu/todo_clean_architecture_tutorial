@@ -5,12 +5,12 @@ import '../../../../shared/utils/usecase.dart';
 import '../entities/todo.dart';
 import '../repositories/todo_repository.dart';
 
-class AddTodoUseCase implements UseCase<Todo, Params<Todo>> {
+class EditTodoUseCase implements UseCase<Todo, Params<Todo>> {
   final TodoRepository repository;
-  AddTodoUseCase(this.repository);
+  EditTodoUseCase(this.repository);
 
   @override
-  Future<Either<Failure, Todo>> call(Params params) async {
-    return await repository.add(params.data);
+  Future<Either<Failure, Todo>> call(Params<Todo> params) {
+    return repository.edit(params.data);
   }
 }
