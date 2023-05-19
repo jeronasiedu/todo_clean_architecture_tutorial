@@ -16,11 +16,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
-      initialBinding: TodoBinding(),
+    return GetMaterialApp(
       title: 'Todo Clean',
       debugShowCheckedModeBanner: false,
-      home: HomePage()
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomePage(), binding: TodoBinding()),
+      ],
     );
   }
 }
