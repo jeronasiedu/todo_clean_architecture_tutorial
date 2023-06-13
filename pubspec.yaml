@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^2.5.0
-  cloud_firestore: ^4.3.2
+  firebase_core: ^2.13.1
+  cloud_firestore: ^4.8.0
   dartz: ^0.10.1
   get:
 

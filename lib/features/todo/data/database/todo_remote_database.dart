@@ -4,18 +4,18 @@ import '../../domain/entities/todo.dart';
 
 abstract class TodoRemoteDatabase {
   Future<Todo> addTodo(Todo todo);
+
   Future<Todo> editTodo(Todo todo);
+
   Future<Todo> deleteTodo(Todo todo);
-  Future<List<Todo>> listTodos();
+
+  Stream<List<Todo>> listTodos();
 }
 
 class TodoRemoteDatabaseImpl implements TodoRemoteDatabase {
   @override
   Future<Todo> addTodo(Todo todo) async {
-    await FirebaseFirestore.instance
-        .collection('todos')
-        .doc(todo.id)
-        .set(todo.toMap());
+    await FirebaseFirestore.instance.collection('todos').doc(todo.id).set(todo.toMap());
     return todo;
   }
 
@@ -27,17 +27,14 @@ class TodoRemoteDatabaseImpl implements TodoRemoteDatabase {
 
   @override
   Future<Todo> editTodo(Todo todo) async {
-    await FirebaseFirestore.instance
-        .collection('todos')
-        .doc(todo.id)
-        .update(todo.toMap());
+    await FirebaseFirestore.instance.collection('todos').doc(todo.id).update(todo.toMap());
     return todo;
   }
 
   @override
-  Future<List<Todo>> listTodos() async {
-    final todosData =
-        await FirebaseFirestore.instance.collection('todos').get();
-    return todosData.docs.map((item) => Todo.fromMap(item.data())).toList();
+  Stream<List<Todo>> listTodos() async* {
+    yield* FirebaseFirestore.instance.collection('todos').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => Todo.fromMap(doc.data())).toList();
+    });
   }
 }

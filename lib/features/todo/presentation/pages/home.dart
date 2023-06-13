@@ -12,16 +12,38 @@ class HomePage extends GetView<TodoController> {
       appBar: AppBar(
         title: const Text('Todo Clean Architecture'),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {},
-            title: const Text('Title'),
-            subtitle: const Text('Description'),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.delete),
-            ),
+      body: StreamBuilder(
+        stream: controller.listTodo(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final todos = snapshot.data!;
+            return ListView.builder(
+              itemCount: todos.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(todos[index].text),
+                  subtitle: Text(todos[index].description),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        splashRadius: 20,
+                        onPressed: () {},
+                        icon: const Icon(Icons.edit),
+                      ),
+                      IconButton(
+                        splashRadius: 20,
+                        onPressed: () {},
+                        icon: const Icon(Icons.delete),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator.adaptive(),
           );
         },
       ),
