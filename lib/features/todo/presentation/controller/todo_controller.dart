@@ -5,6 +5,7 @@ import 'package:todo_clean/features/todo/domain/usecases/add.dart';
 import 'package:todo_clean/shared/utils/usecase.dart';
 
 import '../../../../shared/utils/random_id.dart';
+import '../../domain/usecases/delete.dart';
 import '../../domain/usecases/list.dart';
 
 class TodoController extends GetxController {
@@ -13,10 +14,12 @@ class TodoController extends GetxController {
   final descriptionController = TextEditingController();
   final AddTodoUseCase addTodoUseCase;
   final ListTodoUseCase listTodoUseCase;
+  final DeleteTodoUseCase deleteTodoUseCase;
 
   TodoController({
     required this.addTodoUseCase,
     required this.listTodoUseCase,
+    required this.deleteTodoUseCase,
   });
 
   Future<void> addTodo() async {
@@ -47,5 +50,13 @@ class TodoController extends GetxController {
     }, (todo) {
       return todo;
     });
+  }
+
+  Future<void> deleteTodo(Todo todo) async {
+    final results = await deleteTodoUseCase(Params(todo));
+    results.fold(
+      (failure) => Get.snackbar("Error", failure.message),
+      (r) => Get.snackbar("Success", "Todo deleted successfully"),
+    );
   }
 }

@@ -17,6 +17,12 @@ class HomePage extends GetView<TodoController> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final todos = snapshot.data!;
+            if (todos.isEmpty) {
+              return const Center(
+                child: Text("No todos found"),
+              );
+            }
+
             return ListView.builder(
               itemCount: todos.length,
               itemBuilder: (context, index) {
@@ -33,7 +39,9 @@ class HomePage extends GetView<TodoController> {
                       ),
                       IconButton(
                         splashRadius: 20,
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.deleteTodo(todos[index]);
+                        },
                         icon: const Icon(Icons.delete),
                       ),
                     ],
