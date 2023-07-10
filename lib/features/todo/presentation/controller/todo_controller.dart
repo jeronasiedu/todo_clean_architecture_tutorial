@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_clean/features/todo/domain/entities/todo.dart';
 import 'package:todo_clean/features/todo/domain/usecases/add.dart';
+import 'package:todo_clean/features/todo/domain/usecases/edit.dart';
 import 'package:todo_clean/shared/utils/usecase.dart';
 
 import '../../../../shared/utils/random_id.dart';
@@ -15,11 +16,13 @@ class TodoController extends GetxController {
   final AddTodoUseCase addTodoUseCase;
   final ListTodoUseCase listTodoUseCase;
   final DeleteTodoUseCase deleteTodoUseCase;
+  final EditTodoUseCase editTodoUseCase;
 
   TodoController({
     required this.addTodoUseCase,
     required this.listTodoUseCase,
     required this.deleteTodoUseCase,
+    required this.editTodoUseCase,
   });
 
   Future<void> addTodo() async {
@@ -57,6 +60,13 @@ class TodoController extends GetxController {
     results.fold(
       (failure) => Get.snackbar("Error", failure.message),
       (r) => Get.snackbar("Success", "Todo deleted successfully"),
+    );
+  }
+  Future<void> editTodo(Todo todo) async {
+    final results = await editTodoUseCase(Params(todo));
+    results.fold(
+      (failure) => Get.snackbar("Error", failure.message),
+      (r) => Get.snackbar("Success", "Todo edited successfully"),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_clean/features/todo/domain/entities/todo.dart';
 
 import '../controller/todo_controller.dart';
 
@@ -34,7 +35,78 @@ class HomePage extends GetView<TodoController> {
                     children: [
                       IconButton(
                         splashRadius: 20,
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.titleController.text = todos[index].text;
+                          controller.descriptionController.text = todos[index].description;
+                          showModalBottomSheet(
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                width: double.maxFinite,
+                                height: MediaQuery.of(context).size.height * 0.8,
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Form(
+                                    key: controller.formKey,
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                          controller: controller.titleController,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Title is required';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: const InputDecoration(
+                                            labelText: 'Title',
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 8.0),
+                                          child: TextFormField(
+                                            controller: controller.descriptionController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Description is required';
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              labelText: 'Description',
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: double.maxFinite,
+                                          child: ElevatedButton(
+                                            onPressed: () async {
+                                              if (controller.formKey.currentState!.validate()) {
+                                                controller.editTodo(Todo(
+                                                    id: todos[index].id,
+                                                    text: controller.titleController.text.trim(),
+                                                    description: controller.descriptionController.text.trim(),));
+                                                // pop the bottom sheet
+                                                Navigator.pop(context);
+                                              }
+                                            },
+                                            child: const Text('Edit Todo'),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+
+
+
+                        },
                         icon: const Icon(Icons.edit),
                       ),
                       IconButton(
